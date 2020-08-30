@@ -1,0 +1,21 @@
+@startmindmap
+
+* <&globe> Lutte
+** Features
+*** POJO model
+*** Yaml / JSON serialization support (Jackson)
+*** HATEOAS-enabled web service <&star>
+*** Configurable Spring Data backend :
+**** KeyValue (Redis, in-memory)
+**** JPA (MySQL, HSQL)
+** Architecture
+*** Back-end
+****_ Java 11
+****_ Microservice
+****_ Spring boot
+
+
+legend right
+  <&star> Priority feature    
+endlegend
+@endmindmap
