@@ -1,4 +1,4 @@
-@startmindmap
+@startmindmap features
 
 * <&globe> Lutte
 ** Features
@@ -10,7 +10,7 @@
 **** JPA (MySQL, HSQL)
 ** Architecture
 *** Back-end
-****_ Java 11
+****_ Java 11 
 ****_ Microservice
 ****_ Spring boot
 

@@ -1,0 +1,168 @@
+@startuml Classes
+
+interface Named {
+    UUID identifier
+    String name
+}
+
+class Competition {
+    Timestamp start
+    Timestamp end
+    String title
+}
+
+class Game {
+   String title
+   Timestamp start
+   Timestamp end
+}
+
+class Player <<Named>> {
+    String nickname
+}
+
+class User {
+    UUID userId
+}
+
+User --|> Player
+
+interface Team <<Named>>
+
+Team ... Player : "Team Leader"
+
+
+interface Action {
+    Integer score
+    Team performingTeam
+    Player performingPlayer
+    String description
+    Timestamp startedAt
+    Timestamp completedAt
+}
+
+Action ..* Action : Parent
+interface Handicap {
+    Team recipient
+}
+
+interface Penalty 
+
+Penalty --> Player : Recipient
+Penalty ..o Handicap : Is part of
+Handicap --* Team : Affects
+Handicap *-- Game : Occurs during
+
+Competition *-- Game : Occurs during
+Action --* Game : Occurs during
+Team o--- Game : Participates
+Player --* Team : Members
+
+@enduml
+
+@startuml "Football example"
+
+interface Action
+interface Penalty
+interface Team
+interface Game
+
+class FootballGame {
+    Team team1
+    Team team2
+}
+
+FootballGame --|> Game 
+FootballGame *-- Goal
+
+class FootballAction {
+
+}
+
+FootballAction --|> Action
+
+class FootballTeam
+FootballTeam --|> Team
+
+class FootballPlayer
+FootballPlayer --* FootballTeam : belongs to
+
+class HalfTime as "Half Time"
+
+Goal --|> FootballAction
+HalfTime --|> FootballAction
+Corner --|> FootballAction
+Offside --|> FootballAction
+Foul --|> FootballAction
+PenaltyKick --|> FootballAction
+FreeKick --|> FootballAction
+GoalKick --|> FootballAction
+
+Foul ..> "Yellow Card"
+Foul ..> "Red Card"
+
+Foul ..> PenaltyKick : results in
+Foul ..> FreeKick : results in
+PenaltyKick ..> Goal : results in
+FreeKick ..> Goal : results in
+"Yellow Card" --|> Penalty
+"Red Card" --|> Penalty
+
+class Exclusion <<Handicap>>
+"Red Card" --> Exclusion
+Exclusion --> FootballTeam : affects
+@enduml
+
+
+@startuml "Volleyball example"
+
+interface Action
+interface Penalty
+interface Team
+interface Game
+
+class FootballGame {
+    Team team1
+    Team team2
+}
+
+FootballGame --|> Game 
+FootballGame *-- Goal
+
+class FootballAction {
+}
+
+FootballAction --|> Action
+
+class FootballTeam
+FootballTeam --|> Team
+
+class FootballPlayer
+FootballPlayer --* FootballTeam : belongs to
+
+class HalfTime as "Half Time"
+
+Goal --|> FootballAction
+HalfTime --|> FootballAction
+Corner --|> FootballAction
+Offside --|> FootballAction
+Foul --|> FootballAction
+PenaltyKick --|> FootballAction
+FreeKick --|> FootballAction
+GoalKick --|> FootballAction
+
+Foul ..> "Yellow Card"
+Foul ..> "Red Card"
+
+Foul ..> PenaltyKick : results in
+Foul ..> FreeKick : results in
+PenaltyKick ..> Goal : results in
+FreeKick ..> Goal : results in
+"Yellow Card" --|> Penalty
+"Red Card" --|> Penalty
+
+class Exclusion <<Handicap>>
+"Red Card" --> Exclusion
+Exclusion --> FootballTeam : affects
+@enduml
+

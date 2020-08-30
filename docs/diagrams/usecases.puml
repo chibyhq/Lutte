@@ -1,0 +1,21 @@
+@startuml Use Cases
+actor Player as P
+actor "Team Leader" as TL
+actor "Game Organizer" as O
+
+O --> (Create Game Flow)
+O --> (Register Game)
+O --> (Display Game Results)
+O --> (Register Competition)
+(Register Game) --|> (Register Competition)
+
+P --> (Join Team)
+(Join Game) --|> (Register Game)
+P --> (Participate in Actions)
+O --> (Triggers new Action)
+TL --> (Collect Votes)
+TL --> (Create Team)
+(Create Team) --|> (Join Game)
+
+(Collect Votes) --|> (Participate in Actions)
+@enduml
