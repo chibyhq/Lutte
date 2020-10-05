@@ -9,16 +9,19 @@ class Competition {
     Timestamp start
     Timestamp end
     String title
+    Map<String, String> Info
 }
 
 class Game {
    String title
    Timestamp start
    Timestamp end
+   Map<String, String> Info
 }
 
 class Player <<Named>> {
     String nickname
+    Map<String, String> Info
 }
 
 class User {
@@ -33,12 +36,13 @@ Team ... Player : "Team Leader"
 
 
 interface Action {
-    Integer score
+    Integer scoreDelta
     Team performingTeam
     Player performingPlayer
     String description
     Timestamp startedAt
     Timestamp completedAt
+    Map<String, String> info
 }
 
 Action ..* Action : Parent
