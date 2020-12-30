@@ -91,6 +91,14 @@ FootballTeam --|> Team
 class FootballPlayer
 FootballPlayer --* FootballTeam : belongs to
 
+class FootballPosition {
+    String positionName
+    Boolean isGoalie
+}
+FootballPlayer *-- FootballPosition : occupies
+FootballPosition *-- FootballAction : starts at
+FootballPosition *-- FootballAction : finishes at
+
 class HalfTime as "Half Time"
 
 Goal --|> FootballAction
@@ -101,6 +109,7 @@ Foul --|> FootballAction
 PenaltyKick --|> FootballAction
 FreeKick --|> FootballAction
 GoalKick --|> FootballAction
+PlayerExchange --|> FootballAction
 
 Foul ..> "Yellow Card"
 Foul ..> "Red Card"
@@ -125,43 +134,42 @@ interface Penalty
 interface Team
 interface Game
 
-class FootballGame {
+class VolleyballGame {
     Team team1
     Team team2
 }
 
-FootballGame --|> Game 
-FootballGame *-- Goal
+VolleyballGame --|> Game 
+VolleyballGame *-- Point
 
-class FootballAction {
+class VolleyballAction {
 }
 
-FootballAction --|> Action
+VolleyballAction --|> Action
 
-class FootballTeam
-FootballTeam --|> Team
+class VolleyballTeam
+VolleyballTeam --|> Team
 
-class FootballPlayer
-FootballPlayer --* FootballTeam : belongs to
+class VolleyballPlayer
+VolleyballPlayer --|> Player
+
+VolleyballPlayer --* VolleyballTeam : belongs to
 
 class HalfTime as "Half Time"
 
-Goal --|> FootballAction
-HalfTime --|> FootballAction
-Corner --|> FootballAction
-Offside --|> FootballAction
-Foul --|> FootballAction
-PenaltyKick --|> FootballAction
-FreeKick --|> FootballAction
-GoalKick --|> FootballAction
+Point --|> VolleyballAction
+HalfTime --|> VolleyballAction
+Foul --|> VolleyballAction
+Delay --|> VolleyballAction
+Serve --|> VolleyballAction
+Sideout --|> VolleyballAction
 
 Foul ..> "Yellow Card"
 Foul ..> "Red Card"
 
-Foul ..> PenaltyKick : results in
-Foul ..> FreeKick : results in
-PenaltyKick ..> Goal : results in
-FreeKick ..> Goal : results in
+Penalty --> Player : Recipient
+
+Delay ..> Point : results in
 "Yellow Card" --|> Penalty
 "Red Card" --|> Penalty
 
